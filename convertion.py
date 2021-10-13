@@ -39,6 +39,7 @@ if __name__ == '__main__':
 
   for j in range(nbConvives, len(m)):
     convives[m[j][0]][2].append(m[j][1])
+    convives[m[j][1]][2].append(m[j][0])
 
   res = glouton(convives)
   print("res: " + str(res))
