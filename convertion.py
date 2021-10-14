@@ -1,6 +1,6 @@
 import sys
 
-from glouton import *
+from genetique import *
 
 if __name__ == '__main__':
   
@@ -78,7 +78,8 @@ if __name__ == '__main__':
   for mot in result:
       fichierSortie.write(str(mot) + "\n")
   fichierSortie.close()
-
   
   res = glouton(convives)
   print("Score de soirée: " + str(res))
+
+  initPop(convives, 10)
