@@ -47,25 +47,25 @@ if __name__ == '__main__':
   result.append("Maximize")
   
   objectif = "z:"
-  for i in range(1, nbConvives + 1):
-    objectif += " " + str(convives[i - 1][1]) + " x" + str(i) + " +"
+  for i in range(0, nbConvives):
+    objectif += " " + str(convives[i][1]) + " x" + str(i) + " +"
   objectif = objectif[:len(objectif)-1]
   result.append(objectif)
 
   result.append("Subject To")
 
+  k = 0
   for i in range(0, nbConvives):
-    poids = "c" + str(i + 1) + ":"
-    for j in range(0, len(convives[i][2])):
-      connaissance = convives[i][2][j]
-      poids += " " +  str(convives[connaissance][1]) + " x" + str(connaissance + 1) + " +"
-    poids = poids[:len(poids)-1]
-    poids += "<= " + str(len(convives[i][2]))
-    result.append(poids)
+    for j in range(i + 1, nbConvives):
+      if j not in convives[i][2]:
+        poids = "c" + str(k) + ":"
+        poids += " x" + str(i) + " + x" + str(j) + " <= 1"
+        k += 1
+        result.append(poids)
 
   result.append("Binaries")
 
-  for i in range(1, nbConvives + 1):
+  for i in range(0, nbConvives):
     result.append("x" + str(i))
 
   result.append("End")
@@ -78,6 +78,5 @@ if __name__ == '__main__':
   for mot in result:
       fichierSortie.write(str(mot) + "\n")
   fichierSortie.close()
-
 
   population = initPop(convives, 10)
