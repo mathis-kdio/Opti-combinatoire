@@ -41,31 +41,31 @@ if __name__ == '__main__':
     convives[m[j][0]][2].append(m[j][1])
     convives[m[j][1]][2].append(m[j][0])
 
-  res = glouton(convives)
-  print("res: " + str(res))
 
   # Ecriture du résultat dans le fichier lp
   result = []
   result.append("Maximize")
   
   objectif = "z:"
-  for i in range(1, nbConvives):
-    objectif += " " + str(m[i - 1][0]) + " x" + str(i) + " +"
+  for i in range(1, nbConvives + 1):
+    objectif += " " + str(convives[i - 1][1]) + " x" + str(i) + " +"
   objectif = objectif[:len(objectif)-1]
   result.append(objectif)
 
   result.append("Subject To")
 
-  poids = "poids:"
-  for i in range(1, nbConvives):
-    poids += " " + str(m[i - 1][1]) + " x" + str(i) + " +"
-  poids = poids[:len(poids)-1]
-  poids += "<= 10"
-  result.append(poids)
+  for i in range(0, nbConvives):
+    poids = "c" + str(i + 1) + ":"
+    for j in range(0, len(convives[i][2])):
+      connaissance = convives[i][2][j]
+      poids += " " +  str(convives[connaissance][1]) + " x" + str(connaissance + 1) + " +"
+    poids = poids[:len(poids)-1]
+    poids += "<= " + str(len(convives[i][2]))
+    result.append(poids)
 
   result.append("Binaries")
 
-  for i in range(1, nbConvives):
+  for i in range(1, nbConvives + 1):
     result.append("x" + str(i))
 
   result.append("End")
@@ -78,3 +78,7 @@ if __name__ == '__main__':
   for mot in result:
       fichierSortie.write(str(mot) + "\n")
   fichierSortie.close()
+
+  
+  res = glouton(convives)
+  print("res: " + str(res))
