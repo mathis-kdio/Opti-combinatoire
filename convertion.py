@@ -82,4 +82,4 @@ if __name__ == '__main__':
   res = glouton(convives)
   print("Score de soirée: " + str(res))
 
-  initPop(convives, 10)
+  population = initPop(convives, 10)
