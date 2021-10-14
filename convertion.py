@@ -81,4 +81,4 @@ if __name__ == '__main__':
 
   
   res = glouton(convives)
-  print("res: " + str(res))
+  print("Score de soirée: " + str(res))
