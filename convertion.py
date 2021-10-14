@@ -41,8 +41,6 @@ if __name__ == '__main__':
     convives[m[j][0]][2].append(m[j][1])
     convives[m[j][1]][2].append(m[j][0])
 
-  #res = glouton(convives)
-  #print("res: " + str(res))
 
   # Ecriture du résultat dans le fichier lp
   result = []
@@ -80,3 +78,7 @@ if __name__ == '__main__':
   for mot in result:
       fichierSortie.write(str(mot) + "\n")
   fichierSortie.close()
+
+  
+  res = glouton(convives)
+  print("res: " + str(res))
