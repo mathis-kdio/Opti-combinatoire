@@ -56,14 +56,14 @@ if __name__ == '__main__':
 
   result.append("Subject To")
 
+  k = 0
   for i in range(0, nbConvives):
-    poids = "c" + str(i + 1) + ":"
-    for j in range(0, len(convives[i][2])):
-      connaissance = convives[i][2][j]
-      poids += " " +  str(convives[connaissance][1]) + " x" + str(connaissance + 1) + " +"
-    poids = poids[:len(poids)-1]
-    poids += "<= " + str(len(convives[i][2]))
-    result.append(poids)
+    for j in range(i + 1, nbConvives):
+      if j not in convives[i][2]:
+        poids = "c" + str(k) + ":"
+        poids += " x" + str(i + 1) + " + x" + str(j + 1) + " <= 1"
+        k += 1
+        result.append(poids)
 
   result.append("Binaries")
 
