@@ -49,8 +49,8 @@ if __name__ == '__main__':
   result.append("Maximize")
   
   objectif = "z:"
-  for i in range(1, nbConvives + 1):
-    objectif += " " + str(convives[i - 1][1]) + " x" + str(i) + " +"
+  for i in range(0, nbConvives):
+    objectif += " " + str(convives[i][1]) + " x" + str(i) + " +"
   objectif = objectif[:len(objectif)-1]
   result.append(objectif)
 
@@ -61,13 +61,13 @@ if __name__ == '__main__':
     for j in range(i + 1, nbConvives):
       if j not in convives[i][2]:
         poids = "c" + str(k) + ":"
-        poids += " x" + str(i + 1) + " + x" + str(j + 1) + " <= 1"
+        poids += " x" + str(i) + " + x" + str(j) + " <= 1"
         k += 1
         result.append(poids)
 
   result.append("Binaries")
 
-  for i in range(1, nbConvives + 1):
+  for i in range(0, nbConvives):
     result.append("x" + str(i))
 
   result.append("End")
