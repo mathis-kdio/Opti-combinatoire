@@ -1,5 +1,6 @@
+import random
 
-def glouton(convives):
+def glouton(convives, randomize):
     #Déclaration des variables
     heuristique = 0
     tmp = 0
@@ -8,15 +9,20 @@ def glouton(convives):
     listVoisin = []
     connaissancesH = []
 
-    #On détermine la meilleure heuristique avec le critère de choix et on ajoute sa valeur ainsi que ses voisins
-    for i in range(0, len(convives)):
-        heuristique = convives[i][1] * len(convives[i][2])
-        if heuristique > tmp:
-            tmp = heuristique
-            theOne = i
+    if randomize == False:
+        #On détermine la meilleure heuristique avec le critère de choix et on ajoute sa valeur ainsi que ses voisins
+        for i in range(0, len(convives)):
+            heuristique = convives[i][1] * len(convives[i][2])
+            if heuristique > tmp:
+                tmp = heuristique
+                theOne = i
 
-    solution.append(theOne)
-    listVoisin.append(list(convives[theOne][2]))
+        solution.append(theOne)
+        listVoisin.append(list(convives[theOne][2]))
+    if randomize == True:
+        theOne = random.randrange(0, len(convives))
+        solution.append(theOne)
+        listVoisin.append(list(convives[theOne][2]))
 
     #On trie le tableau des voisins en fonction de la meilleure heuristique
     for i in range (0, len(convives[theOne][2])):
