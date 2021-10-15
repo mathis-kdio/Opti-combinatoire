@@ -79,5 +79,15 @@ def mutation(population, numerateur):
 
   return population
 
-
+def reparation(convives, population):
+  scores = []
+  score = 0
+  for i in range(0, len(population)):
+    scores.append([])
+    for j in range(0, len(population[i])):
+      score = 0
+      for k in range (0, len(population[i])):
+        if j != k and population[i][j] not in convives[population[k]]:
+          score += 1
+      scores[i].append(score)
 

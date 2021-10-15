@@ -85,3 +85,4 @@ if __name__ == '__main__':
   print(population)
   population = croisement(population, 0.8)
   population = mutation(population, 2)
+  population = reparation(convives, population)
