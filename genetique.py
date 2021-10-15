@@ -13,6 +13,27 @@ def initPop(convives, taillePop):
 
   return population
 
+def croisement(population, p_croisement):
+  populationEnfants = []
+  for i in range(0, len(population), 2):
+    rand = random.uniform(0, 1)
+    if rand < p_croisement: #croisement
+      lenPop1 = len(population[i])
+      lenPop2 = len(population[i+1])
+      if lenPop1 > lenPop2:
+        K = random.randrange(1, lenPop2)
+      else:
+        K = random.randrange(1, lenPop1)
+
+      populationEnfants.append(population[i][0:K] + population[i + 1][K:lenPop2])
+      populationEnfants.append(population[i + 1][0:K] + population[i][K:lenPop1])
+
+    else: #recopier
+      populationEnfants.append(population[i])
+      populationEnfants.append(population[i+1])
+
+  return populationEnfants
+
 def selection(convives, population, taille):
   reproduction = []
   score = 0
