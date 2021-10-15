@@ -79,7 +79,8 @@ if __name__ == '__main__':
       fichierSortie.write(str(mot) + "\n")
   fichierSortie.close()
 
-  population = initPop(convives, 10)
-  
 
+  population = initPop(convives, 200)
+  reproduction = selection(convives, population, 100)
+  print(reproduction)
   croisement(population, 0.8)
