@@ -82,6 +82,22 @@ def mutation(population, numerateur):
   return population
 
 
+def survie(convives, population, taille):
+  listTmp = []
+  score = 0
 
+  for i in range(0, len(population)):
+    for j in range(0, len(population[i])):
+      score += convives[population[i][j]][1]
+    
+    listTmp.append([score, population[i]])
+    score = 0
+  
+  listTmp.sort(reverse=True)
+  population.clear()
+  for i in range(0, taille):
+    population.append(listTmp[i])
+
+  return population
 
 
