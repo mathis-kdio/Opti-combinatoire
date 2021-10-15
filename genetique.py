@@ -82,32 +82,71 @@ def mutation(population, numerateur):
   return population
 
 def reparation(convives, populations):
-  scoresWithConvive = []
+  print("DEBUT réparation")
+  print(populations)
+
+  scoresWithConvives = []
   scores = []
   score = 0
   for population in populations:
     acceptable = False
     while acceptable == False:
+      #Calcul des scores
       for invite in population:
         score = 0
         for autresInvites in population:
           if invite != autresInvites and invite not in convives[autresInvites][2]:
             score += 1
-        scoresWithConvive.append([score, invite])
+        scoresWithConvives.append([score, invite])
         scores.append(score)
       
-      if all(ele == 0 for ele in scoresWithConvive):
+      #Test si solution possible
+      if all(ele[0] == 0 for ele in scoresWithConvives):
         acceptable = True
         break
 
-      scoresWithConvive.sort(reverse=True)
+      #On enlève aléatoirement des convives avec un score non nu en fct du score
+      scoresWithConvives.sort(reverse=True)
       scores.sort(reverse=True)
-      ##.remove à changer
-      population.remove(scoresWithConvive[random.randrange(0, scores.count(scores[0]))][1])
+      population.remove(scoresWithConvives[random.randrange(0, scores.count(scores[0]))][1])
       scores.clear()
-      scoresWithConvive.clear()
+      scoresWithConvives.clear()
 
+      #On ajoute des convives à la manière d’un glouton
+      convivesCopy = convives.copy()
+      convivesCopy.sort(reverse=True)
+      popval = []
+      for i in range(0, len(population)):
+        popval.append([convives[population[i]][1], convives[population[i]][0]])
 
+      popval.sort(reverse=True)
 
-    print(population)
-    print("pop suivante")
+      theOne = popval[0][1]
+      listVoisin = []
+      listVoisin.append(list(convives[theOne][2]))
+      for i in range(0, len(population)):
+        if population[i] != theOne:
+          listVoisin.append(list(convives[population[i]][2]))
+      
+      connaissancesH = []
+      for i in range(0, len(convives[theOne][2])):
+        h = convives[listVoisin[0][i]][1] * len(convives[listVoisin[0][i]][2])
+        connaissancesH.append([h, listVoisin[0][i]])
+
+      connaissancesH.sort(reverse=True)
+      nbVoisins = len(listVoisin)
+      for i in range(0, nbVoisins):
+        apparition = 0
+        for j in range(0, nbVoisins):
+          if listVoisin[i][0] in listVoisin[j]:
+            apparition += 1
+        if apparition == nbVoisins:
+          population.append(listVoisin[i][0])
+          break
+
+      #print("Calcul des nouveaux scores après ajout")
+
+    #print(population)
+    #print("pop suivante")
+  print("FIN réparation")
+  print(populations)
