@@ -49,3 +49,4 @@ def glouton(convives, randomize):
         poids += convives[i][1]
 
     return solution
+
