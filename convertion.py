@@ -81,4 +81,4 @@ if __name__ == '__main__':
 
   population = initPop(convives, 200)
   reproduction = selection(convives, population, 100)
-  print(reproduction)
+  newPop = mutation(reproduction, 2)

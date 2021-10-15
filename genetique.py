@@ -44,3 +44,19 @@ def selection(convives, population, taille):
   return reproduction
 
 
+def mutation(population, numerateur):
+  rand = 0
+  newValeur = 0
+  probaMute = 0
+  for i in range(0, len(population)):
+    for j in range(0, len(population[i])):
+      rand = random.uniform(0, 1)
+      probaMute = numerateur/len(population[i])
+      if rand < probaMute:
+        newValeur = randrange(0, len(population))
+        population[i][j] = newValeur
+
+  return population
+
+
+
