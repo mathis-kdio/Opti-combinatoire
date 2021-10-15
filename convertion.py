@@ -79,9 +79,8 @@ if __name__ == '__main__':
       fichierSortie.write(str(mot) + "\n")
   fichierSortie.close()
 
-
   population = initPop(convives, 200)
   population = selection(convives, population, 100)
-  print(population)
   population = croisement(population, 0.8)
   population = mutation(population, 2)
+ 

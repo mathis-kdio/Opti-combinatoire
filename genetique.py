@@ -55,12 +55,14 @@ def selection(convives, population, taille):
       borneSup = score
     score = 0
 
-  randProba = randrange(borneInf, borneSup)/somme
-
   for i in range(0, len(listScore)):
+    randProba = randrange(borneInf, borneSup)/somme
     proba = listScore[i]/somme
     if proba > randProba and len(reproduction) < taille:
       reproduction.append(population[i])
+
+  if len(reproduction)%2 != 0:
+    reproduction.pop(-1)
 
   return reproduction
 
@@ -78,6 +80,8 @@ def mutation(population, numerateur):
         population[i][j] = newValeur
 
   return population
+
+
 
 
 
