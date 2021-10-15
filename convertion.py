@@ -8,7 +8,7 @@ if __name__ == '__main__':
   argu = sys.argv[1]
   sans_instance = argu.split("instance")
   sans_txt = sans_instance[1].split(".txt")
-  instance_num = sans_txt[0]
+  instance_num = int(sans_txt[0])
 
   print("Projet Optimisation Combinatoire")
 
@@ -85,8 +85,16 @@ if __name__ == '__main__':
       fichierSortie.write(str(mot) + "\n")
   fichierSortie.close()
 
-  population = initPop(convives, 200)
-  population = selection(convives, population, 100)
-  population = croisement(population, 0.8)
-  population = mutation(population, 2)
+  res_glpk = Tab_result_GLPK[instance_num - 1]
+  res_glouton = glouton(convives, False)
+  print("res glouton", res_glouton)
+
+  res_gap = gap(convives, instance_num, res_glouton, res_glpk)
+  print("res_gap", res_gap)
+
+
+  #population = initPop(convives, 200)
+  #population = selection(convives, population, 100)
+  #population = croisement(population, 0.8)
+  #population = mutation(population, 2)
  
