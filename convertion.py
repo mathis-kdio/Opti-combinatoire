@@ -3,7 +3,13 @@ import sys
 from genetique import *
 
 if __name__ == '__main__':
-  
+
+  Tab_result_GLPK = [73, 91, 84, 83, 81, 80, 81, 85, 77, 91]
+  argu = sys.argv[1]
+  sans_instance = argu.split("instance")
+  sans_txt = sans_instance[1].split(".txt")
+  instance_num = sans_txt[0]
+
   print("Projet Optimisation Combinatoire")
 
   # Lecture du fichier d'instance
