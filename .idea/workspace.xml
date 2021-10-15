@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="ba3625c5-9267-487f-9589-9b874bfec003" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/glouton.py" beforeDir="false" afterPath="$PROJECT_DIR$/glouton.py" afterDir="false" />
-    </list>
+    <list default="true" id="ba3625c5-9267-487f-9589-9b874bfec003" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
