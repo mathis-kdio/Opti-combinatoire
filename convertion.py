@@ -80,3 +80,6 @@ if __name__ == '__main__':
   fichierSortie.close()
 
   population = initPop(convives, 10)
+  
+
+  croisement(population, 0.8)
