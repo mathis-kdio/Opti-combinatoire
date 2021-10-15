@@ -44,8 +44,4 @@ def glouton(convives, randomize):
                             
         listVoisin[0].pop(0)
 
-    poids = 0
-    for i in solution:
-        poids += convives[i][1]
-
     return solution
