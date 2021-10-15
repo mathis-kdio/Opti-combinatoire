@@ -81,17 +81,33 @@ def mutation(population, numerateur):
 
   return population
 
-def reparation(convives, population):
+def reparation(convives, populations):
+  scoresWithConvive = []
   scores = []
   score = 0
-  for i in range(0, len(population)):
-    scores.append([])
-    for j in range(0, len(population[i])):
-      score = 0
-      for k in range (0, len(population[i])):
-        if j != k and population[i][j] not in convives[population[k]]:
-          score += 1
-      scores[i].append(score)
+  for population in populations:
+    acceptable = False
+    while acceptable == False:
+      for invite in population:
+        score = 0
+        for autresInvites in population:
+          if invite != autresInvites and invite not in convives[autresInvites][2]:
+            score += 1
+        scoresWithConvive.append([score, invite])
+        scores.append(score)
+      
+      if all(ele == 0 for ele in scoresWithConvive):
+        acceptable = True
+        break
+
+      scoresWithConvive.sort(reverse=True)
+      scores.sort(reverse=True)
+      ##.remove à changer
+      population.remove(scoresWithConvive[random.randrange(0, scores.count(scores[0]))][1])
+      scores.clear()
+      scoresWithConvive.clear()
 
 
 
+    print(population)
+    print("pop suivante")
