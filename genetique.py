@@ -189,14 +189,11 @@ def genetique(convives, pc, pm, taillePop, tailleS, iterMax):
     for i in range(0, len(population)):
       solution.append(population[i][:])
     population = selection(convives, population, tailleS)
-    print("avant croisement")
     population = croisement(population, pc)
-    print("avant mutation")
     population = mutation(population, pm, convives)
-    print("avant réparation")
     population = reparation(convives, population)
-    #for i in range(0, len(population)):
-      #solution.append(population[i][:])
+    for i in range(0, len(population)):
+      solution.append(population[i][:])
     population = survie(convives, solution, taillePop)
     solution.clear()
     for i in range(0, len(population)):
