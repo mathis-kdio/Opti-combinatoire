@@ -70,7 +70,7 @@ def selection(convives, population, taille):
   return reproduction
 
 
-def mutation(population, numerateur):
+def mutation(population, numerateur, convives):
   rand = 0
   newValeur = 0
   probaMute = 0
@@ -82,7 +82,7 @@ def mutation(population, numerateur):
         #Test si la valeur random n'est pas déjà dans la population afin d'éviter les doublons
         newValeurOK = False
         while newValeurOK != True:
-          newValeur = randrange(0, len(population))
+          newValeur = randrange(0, len(convives))
           if newValeur not in population[i]:
             newValeurOK = True
         population[i][j] = newValeur
@@ -189,11 +189,14 @@ def genetique(convives, pc, pm, taillePop, tailleS, iterMax):
     for i in range(0, len(population)):
       solution.append(population[i][:])
     population = selection(convives, population, tailleS)
+    print("avant croisement")
     population = croisement(population, pc)
-    population = mutation(population, pm)
+    print("avant mutation")
+    population = mutation(population, pm, convives)
+    print("avant réparation")
     population = reparation(convives, population)
-    for i in range(0, len(population)):
-      solution.append(population[i][:])
+    #for i in range(0, len(population)):
+      #solution.append(population[i][:])
     population = survie(convives, solution, taillePop)
     solution.clear()
     for i in range(0, len(population)):
