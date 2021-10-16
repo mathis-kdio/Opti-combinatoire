@@ -85,8 +85,19 @@ if __name__ == '__main__':
       fichierSortie.write(str(mot) + "\n")
   fichierSortie.close()
 
+  solution = []
+
   population = initPop(convives, 200)
+  for i in range(0, len(population)):
+    solution.append(population[i][:])
   population = selection(convives, population, 100)
   population = croisement(population, 0.8)
   population = mutation(population, 2)
   population = reparation(convives, population)
+  for i in range(0, len(population)):
+    solution.append(population[i][:])
+  survie(convives, solution, 200)
+ 
+
+  
+
