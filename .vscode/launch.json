@@ -10,7 +10,7 @@
             "type": "python",
             "request": "launch",
             "program": "${workspaceFolder}\\convertion.py",
-            "args": ["${workspaceFolder}\\instance1.txt", "${workspaceFolder}\\instance1.lp"],
+            "args": ["${workspaceFolder}\\large1.txt", "${workspaceFolder}\\instance1.lp"],
             "console": "integratedTerminal"
         }
     ]
