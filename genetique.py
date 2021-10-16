@@ -160,7 +160,7 @@ def survie(convives, population, taille):
   listTmp.sort(reverse=True)
   population.clear()
   for i in range(0, taille):
-    population.append(listTmp[i])
+    population.append(listTmp[i][1])
 
   return population
 

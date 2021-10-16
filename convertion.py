@@ -97,7 +97,7 @@ if __name__ == '__main__':
   for i in range(0, len(population)):
     solution.append(population[i][:])
   survie(convives, solution, 200)
- 
+  print(solution)
 
   
 
