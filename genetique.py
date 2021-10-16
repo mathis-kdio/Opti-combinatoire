@@ -87,66 +87,57 @@ def reparation(convives, populations):
 
   scoresWithConvives = []
   scores = []
-  score = 0
   for population in populations:
-    acceptable = False
-    while acceptable == False:
-      #Calcul des scores
-      for invite in population:
-        score = 0
-        for autresInvites in population:
-          if invite != autresInvites and invite not in convives[autresInvites][2]:
-            score += 1
-        scoresWithConvives.append([score, invite])
-        scores.append(score)
-      
-      #Test si solution possible
-      if all(ele[0] == 0 for ele in scoresWithConvives):
-        acceptable = True
-        break
+    #Calcul des scores
+    (scoresWithConvives, scores) = calculScore(population, convives)
 
-      #On enlève aléatoirement des convives avec un score non nu en fct du score
+    #On enlève aléatoirement des convives avec un score non nu en fct du score jusqu'à solution réalisable
+    while all(ele[0] == 0 for ele in scoresWithConvives) == False:
       scoresWithConvives.sort(reverse=True)
       scores.sort(reverse=True)
       population.remove(scoresWithConvives[random.randrange(0, scores.count(scores[0]))][1])
-      scores.clear()
-      scoresWithConvives.clear()
+      (scoresWithConvives, scores) = calculScore(population, convives)
 
-      #On ajoute des convives à la manière d’un glouton
-      convivesCopy = convives.copy()
-      convivesCopy.sort(reverse=True)
-      popval = []
-      for i in range(0, len(population)):
-        popval.append([convives[population[i]][1], convives[population[i]][0]])
 
-      popval.sort(reverse=True)
+    #On ajoute des convives à la manière d’un glouton
+    popval = []
+    for i in range(0, len(population)):
+      popval.append([convives[population[i]][1], convives[population[i]][0]])
 
-      theOne = popval[0][1]
-      listVoisin = []
-      listVoisin.append(list(convives[theOne][2]))
-      for i in range(0, len(population)):
-        if population[i] != theOne:
-          listVoisin.append(list(convives[population[i]][2]))
-      
-      connaissancesH = []
-      for i in range(0, len(convives[theOne][2])):
-        h = convives[listVoisin[0][i]][1] * len(convives[listVoisin[0][i]][2])
-        connaissancesH.append([h, listVoisin[0][i]])
+    popval.sort(reverse=True)
 
-      connaissancesH.sort(reverse=True)
-      nbVoisins = len(listVoisin)
-      for i in range(0, nbVoisins):
-        apparition = 0
-        for j in range(0, nbVoisins):
-          if listVoisin[i][0] in listVoisin[j]:
-            apparition += 1
-        if apparition == nbVoisins and listVoisin[i][0] not in population:
-          population.append(listVoisin[i][0])
-          break
+    listVoisin = []
+    for i in range(0, len(popval)):
+      listVoisin.append(list(convives[popval[i][1]][2]))
+    
+    connaissancesH = []
+    for i in range(0, len(listVoisin[0])):
+      h = convives[listVoisin[0][i]][1] * len(convives[listVoisin[0][i]][2])
+      connaissancesH.append([h, listVoisin[0][i]])
 
-      #print("Calcul des nouveaux scores après ajout")
+    connaissancesH.sort(reverse=True)
+    
+    for i in range(0, len(connaissancesH)):
+      apparition = 0
+      for j in range(0, len(listVoisin)):
+        if connaissancesH[i] in listVoisin[j]:
+          apparition += 1 
+      if apparition == len(listVoisin) and connaissancesH[i] not in population:
+        listVoisin.append(list(convives[connaissancesH[1]][2]))
+        population.append(connaissancesH[1])
 
-    #print(population)
-    #print("pop suivante")
   print("FIN réparation")
   print(populations)
+
+def calculScore(population, convives):
+  scoresWithConvives = []
+  scores = []
+  for invite in population:
+    score = 0
+    for autresInvites in population:
+      if invite != autresInvites and invite not in convives[autresInvites][2]:
+        score += 1
+    scoresWithConvives.append([score, invite])
+    scores.append(score)
+
+  return (scoresWithConvives, scores)
