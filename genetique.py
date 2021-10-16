@@ -76,7 +76,12 @@ def mutation(population, numerateur):
       rand = random.uniform(0, 1)
       probaMute = numerateur/len(population[i])
       if rand < probaMute:
-        newValeur = randrange(0, len(population))
+        #Test si la valeur random n'est pas déjà dans la population afin d'éviter les doublons
+        newValeurOK = False
+        while newValeurOK != True:
+          newValeur = randrange(0, len(population))
+          if newValeur not in population[i]:
+            newValeurOK = True
         population[i][j] = newValeur
 
   return population
