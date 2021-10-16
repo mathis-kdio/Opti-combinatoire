@@ -113,8 +113,9 @@ def reparation(convives, populations):
     #On regarde toutes les connaissances du convive dans la population avec le meilleur interet
     connaissancesH = []
     for i in range(0, len(listeConnaissancesPop[0])):
-      h = convives[listeConnaissancesPop[0][i]][1] * len(convives[listeConnaissancesPop[0][i]][2])
-      connaissancesH.append([h, listeConnaissancesPop[0][i]])
+      connaissanceBestConvivePop = listeConnaissancesPop[0][i]
+      h = convives[connaissanceBestConvivePop][1] * len(convives[connaissanceBestConvivePop][2])
+      connaissancesH.append([h, connaissanceBestConvivePop])
     
     #On trie les connaissances selon leur interet
     connaissancesH.sort(reverse=True)
