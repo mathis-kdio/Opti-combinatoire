@@ -140,7 +140,7 @@ def reparation(convives, populations):
         for j in range(0, nbVoisins):
           if listVoisin[i][0] in listVoisin[j]:
             apparition += 1
-        if apparition == nbVoisins:
+        if apparition == nbVoisins and listVoisin[i][0] not in population:
           population.append(listVoisin[i][0])
           break
 
