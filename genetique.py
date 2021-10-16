@@ -59,7 +59,7 @@ def selection(convives, population, taille):
     if (borneSup != borneInf):
       randProba = randrange(borneInf, borneSup)/somme
     else:
-      randProba = borneInf/somme
+      randProba = randrange(borneInf-5, borneSup+5)/somme
     proba = listScore[i]/somme
     if proba > randProba and len(reproduction) < taille:
       reproduction.append(population[i])
