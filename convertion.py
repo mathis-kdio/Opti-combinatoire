@@ -86,18 +86,15 @@ if __name__ == '__main__':
   fichierSortie.close()
 
   solution = []
+  taillePop = 400
+  tailleS = 100
+  pc = 0.8
+  pm = 2
+  iterMax = 400
 
-  population = initPop(convives, 200)
-  for i in range(0, len(population)):
-    solution.append(population[i][:])
-  population = selection(convives, population, 100)
-  population = croisement(population, 0.8)
-  population = mutation(population, 2)
-  population = reparation(convives, population)
-  for i in range(0, len(population)):
-    solution.append(population[i][:])
-  survie(convives, solution, 200)
-  print(solution)
+  best = genetique(convives, pc, pm, taillePop, tailleS, iterMax)  
+
+
 
   
 
