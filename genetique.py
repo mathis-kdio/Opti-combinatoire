@@ -87,9 +87,6 @@ def mutation(population, numerateur):
   return population
 
 def reparation(convives, populations):
-  print("DEBUT réparation")
-  print(populations)
-
   scoresWithConvives = []
   scores = []
   for population in populations:
@@ -134,8 +131,7 @@ def reparation(convives, populations):
         listeConnaissancesPop.append(list(convives[connaissance][2]))
         population.append(connaissance)
 
-  print("FIN réparation")
-  print(populations)
+  return population
 
 def calculScore(population, convives):
   scoresWithConvives = []
