@@ -89,4 +89,4 @@ if __name__ == '__main__':
   population = selection(convives, population, 100)
   population = croisement(population, 0.8)
   population = mutation(population, 2)
- 
+  population = reparation(convives, population)
