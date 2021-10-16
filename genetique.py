@@ -148,7 +148,7 @@ def calculScore(population, convives):
     scoresWithConvives.append([score, invite])
     scores.append(score)
     
-   return (scoresWithConvives, scores)
+  return (scoresWithConvives, scores)
 
 def survie(convives, population, taille):
   listTmp = []
