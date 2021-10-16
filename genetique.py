@@ -106,24 +106,25 @@ def reparation(convives, populations):
 
     popval.sort(reverse=True)
 
-    listVoisin = []
+    listeConnaissancesPop = []
     for i in range(0, len(popval)):
-      listVoisin.append(list(convives[popval[i][1]][2]))
+      listeConnaissancesPop.append(list(convives[popval[i][1]][2]))
     
+
     connaissancesH = []
-    for i in range(0, len(listVoisin[0])):
-      h = convives[listVoisin[0][i]][1] * len(convives[listVoisin[0][i]][2])
-      connaissancesH.append([h, listVoisin[0][i]])
+    for i in range(0, len(listeConnaissancesPop[0])):
+      h = convives[listeConnaissancesPop[0][i]][1] * len(convives[listeConnaissancesPop[0][i]][2])
+      connaissancesH.append([h, listeConnaissancesPop[0][i]])
 
     connaissancesH.sort(reverse=True)
     
     for i in range(0, len(connaissancesH)):
       apparition = 0
-      for j in range(0, len(listVoisin)):
-        if connaissancesH[i] in listVoisin[j]:
+      for j in range(0, len(listeConnaissancesPop)):
+        if connaissancesH[i] in listeConnaissancesPop[j]:
           apparition += 1 
-      if apparition == len(listVoisin) and connaissancesH[i] not in population:
-        listVoisin.append(list(convives[connaissancesH[1]][2]))
+      if apparition == len(listeConnaissancesPop) and connaissancesH[i] not in population:
+        listeConnaissancesPop.append(list(convives[connaissancesH[1]][2]))
         population.append(connaissancesH[1])
 
   print("FIN réparation")
