@@ -126,13 +126,15 @@ def reparation(convives, populations):
     connaissancesH.sort(reverse=True)
     for i in range(0, len(connaissancesH)):
       connaissance = connaissancesH[i][1]
-      apparition = 0
-      for j in range(0, len(listeConnaissancesPop)):
-        if connaissance in listeConnaissancesPop[j]:
-          apparition += 1 
-      if apparition == len(listeConnaissancesPop) and connaissance not in population:
-        listeConnaissancesPop.append(list(convives[connaissance][2]))
-        population.append(connaissance)
+      if connaissance not in population:
+        ajout = True
+        for j in range(0, len(listeConnaissancesPop)):
+          if connaissance not in listeConnaissancesPop[j]:
+            ajout = False
+            break
+        if ajout == True:
+          listeConnaissancesPop.append(list(convives[connaissance][2]))
+          population.append(connaissance)
 
   return populations
 

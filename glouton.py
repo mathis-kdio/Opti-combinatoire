@@ -34,11 +34,12 @@ def glouton(convives, randomize):
         listConnaissance[0][i] = connaissancesH[i][1]
 
     while listConnaissance[0] != []:
-        apparition = 0
+        ajout = True
         for j in range(0, len(listConnaissance)):
-            if listConnaissance[0][0] in listConnaissance[j]:
-                apparition += 1 
-        if apparition == len(listConnaissance):
+            if listConnaissance[0][0] not in listConnaissance[j]:
+                ajout = False
+                break
+        if ajout == True:
             listConnaissance.append(list(convives[listConnaissance[0][0]][2]))
             solution.append(listConnaissance[0][0])
                             

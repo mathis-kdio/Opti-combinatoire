@@ -6,7 +6,7 @@ if __name__ == '__main__':
 
   Tab_result_GLPK = [73, 91, 84, 83, 81, 80, 81, 85, 77, 91]
   argu = sys.argv[1]
-  sans_instance = argu.split("instance")
+  sans_instance = argu.split("large")
   sans_txt = sans_instance[1].split(".txt")
   instance_num = sans_txt[0]
 
@@ -90,7 +90,7 @@ if __name__ == '__main__':
   tailleS = 100
   pc = 0.8
   pm = 2
-  iterMax = 50
+  iterMax = 100
 
   best = genetique(convives, pc, pm, taillePop, tailleS, iterMax)  
 
