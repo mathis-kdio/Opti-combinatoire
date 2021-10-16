@@ -91,14 +91,14 @@ def reparation(convives, populations):
     #Calcul des scores
     (scoresWithConvives, scores) = calculScore(population, convives)
 
-    #On enlève aléatoirement des convives avec un score non nu en fct du score jusqu'à solution réalisable
+    #On enlève aléatoirement des convives avec un score non nu en fct du score jusqu'à une solution réalisable
     while all(ele[0] == 0 for ele in scoresWithConvives) == False:
       scoresWithConvives.sort(reverse=True)
       scores.sort(reverse=True)
       population.remove(scoresWithConvives[random.randrange(0, scores.count(scores[0]))][1])
       (scoresWithConvives, scores) = calculScore(population, convives)
 
-
+    #Une fois la solution réalisable (Les convives dans la pop se connaissent tous)
     #On ajoute des convives à la manière d’un glouton
     popval = []
     for i in range(0, len(population)):
@@ -110,22 +110,23 @@ def reparation(convives, populations):
     for i in range(0, len(popval)):
       listeConnaissancesPop.append(list(convives[popval[i][1]][2]))
     
-
+    #On regarde toutes les connaissances du convive dans la population avec le meilleur interet
     connaissancesH = []
     for i in range(0, len(listeConnaissancesPop[0])):
       h = convives[listeConnaissancesPop[0][i]][1] * len(convives[listeConnaissancesPop[0][i]][2])
       connaissancesH.append([h, listeConnaissancesPop[0][i]])
-
-    connaissancesH.sort(reverse=True)
     
+    #On trie les connaissances selon leur interet
+    connaissancesH.sort(reverse=True)
     for i in range(0, len(connaissancesH)):
+      connaissance = connaissancesH[i][1]
       apparition = 0
       for j in range(0, len(listeConnaissancesPop)):
-        if connaissancesH[i] in listeConnaissancesPop[j]:
+        if connaissance in listeConnaissancesPop[j]:
           apparition += 1 
-      if apparition == len(listeConnaissancesPop) and connaissancesH[i] not in population:
-        listeConnaissancesPop.append(list(convives[connaissancesH[1]][2]))
-        population.append(connaissancesH[1])
+      if apparition == len(listeConnaissancesPop) and connaissance not in population:
+        listeConnaissancesPop.append(list(convives[connaissance][2]))
+        population.append(connaissance)
 
   print("FIN réparation")
   print(populations)
