@@ -1,7 +1,7 @@
 import sys
 
 from genetique import *
-from parsing import parsing, writeLp
+from parsing import parsing
 from glouton import *
 
 if __name__ == '__main__':
