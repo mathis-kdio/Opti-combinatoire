@@ -7,34 +7,13 @@ def initPop(convives, taillePop):
   res = glouton(convives, False)  
   population.append(res)
 
-  for i in range(0, taillePop - 1):
+  for i in range(taillePop - 1):
     res = glouton(convives, True)
     population.append(res)
 
   return population
 
-def croisement(population, p_croisement):
-  populationEnfants = []
-  for i in range(0, len(population), 2):
-    rand = random.uniform(0, 1)
-    if rand < p_croisement: #croisement
-      lenPop1 = len(population[i])
-      lenPop2 = len(population[i+1])
-      if lenPop1 > lenPop2:
-        K = random.randrange(1, lenPop2)
-      else:
-        K = random.randrange(1, lenPop1)
-
-      populationEnfants.append(population[i][0:K] + population[i + 1][K:lenPop2])
-      populationEnfants.append(population[i + 1][0:K] + population[i][K:lenPop1])
-
-    else: #recopier
-      populationEnfants.append(population[i])
-      populationEnfants.append(population[i+1])
-
-  return populationEnfants
-
-def selection(convives, population, taille):
+def selection(convives, populations, taille):
   reproduction = []
   score = 0
   listScore = []
@@ -43,48 +22,76 @@ def selection(convives, population, taille):
   borneSup = 0
 
   # On calcule le score de tout le monde qu'on stocke, on calcule la somme on determine les bornes du rand
-  for i in range(0, len(population)):
-    for j in range(0, len(population[i])):
-      score += convives[population[i][j]][1]
+  i = 0
+  for population in populations:
+    for invite in population:
+      score += convives[invite][1]
 
-    somme += score
     listScore.append(score)
     if score < borneInf or i == 0:
       borneInf = score
     if score > borneSup:
       borneSup = score
+    somme += score
     score = 0
+    i+=1
 
   for i in range(0, len(listScore)):
-    randProba = randrange(borneInf, borneSup)/somme
+    if (borneSup != borneInf):
+      randProba = randrange(borneInf, borneSup)/somme
+    else:
+      randProba = randrange(borneInf-5, borneSup+5)/somme
+    
     proba = listScore[i]/somme
     if proba > randProba and len(reproduction) < taille:
-      reproduction.append(population[i])
+      reproduction.append(populations[i])
 
   if len(reproduction)%2 != 0:
     reproduction.pop(-1)
 
   return reproduction
 
+def croisement(population, p_croisement):
+  populationEnfants = []
+  for i in range(0, len(population), 2):
+    rand = random.uniform(0, 1)
+    if rand < p_croisement: #croisement
+      lenPop1 = len(population[i])
+      lenPop2 = len(population[i+1])
+      maxRand = lenPop1
+      if lenPop1 > lenPop2:
+        maxRand = lenPop2
 
-def mutation(population, numerateur):
+      k = randrange(1, maxRand)
+      croisement1 = population[i][0:k] + population[i + 1][k:lenPop2]
+      croisement2 = population[i + 1][0:k] + population[i][k:lenPop1]
+      #On supprime si doublons générés par les croisement
+      populationEnfants.append(list(set(croisement1)))
+      populationEnfants.append(list(set(croisement2)))
+    else: #recopier
+      populationEnfants.append(population[i])
+      populationEnfants.append(population[i+1])
+
+  return populationEnfants
+
+def mutation(populations, numerateur, convives):
   rand = 0
   newValeur = 0
   probaMute = 0
-  for i in range(0, len(population)):
-    for j in range(0, len(population[i])):
+  for population in populations:
+    for i in range(len(population)):
       rand = random.uniform(0, 1)
-      probaMute = numerateur/len(population[i])
+      probaMute = numerateur/len(population)
       if rand < probaMute:
         #Test si la valeur random n'est pas déjà dans la population afin d'éviter les doublons
         newValeurOK = False
         while newValeurOK != True:
-          newValeur = randrange(0, len(population))
-          if newValeur not in population[i]:
+          newValeur = randrange(0, len(convives))
+          if newValeur not in population:
             newValeurOK = True
-        population[i][j] = newValeur
+        population[i] = newValeur
 
-  return population
+  return populations
 
 def reparation(convives, populations):
   scoresWithConvives = []
@@ -97,39 +104,41 @@ def reparation(convives, populations):
     while all(ele[0] == 0 for ele in scoresWithConvives) == False:
       scoresWithConvives.sort(reverse=True)
       scores.sort(reverse=True)
-      population.remove(scoresWithConvives[random.randrange(0, scores.count(scores[0]))][1])
+      population.remove(scoresWithConvives[randrange(0, scores.count(scores[0]))][1])
       (scoresWithConvives, scores) = calculScore(population, convives)
 
     #Une fois la solution réalisable (Les convives dans la pop se connaissent tous)
     #On ajoute des convives à la manière d’un glouton
+    
     popval = []
-    for i in range(0, len(population)):
-      popval.append([convives[population[i]][1], convives[population[i]][0]])
+    for invite in population:
+      popval.append([convives[invite][1], invite, convives[invite][2]])
 
-    popval.sort(reverse=True)
+    popval.sort(reverse=True) #Liste des invites triés selon leur intéret avec l'intéret et [0] et numero en [1] et connaissance en [2]
 
     listeConnaissancesPop = []
-    for i in range(0, len(popval)):
-      listeConnaissancesPop.append(list(convives[popval[i][1]][2]))
+    for invite in popval:
+      listeConnaissancesPop.append(invite[2])
     
-    #On regarde toutes les connaissances du convive dans la population avec le meilleur interet
+    #On calcul l'heuristique de toutes les connaissances du convive dans la population avec le meilleur interet
     connaissancesH = []
-    for i in range(0, len(listeConnaissancesPop[0])):
-      connaissanceBestConvivePop = listeConnaissancesPop[0][i]
+    for connaissanceBestConvivePop in listeConnaissancesPop[0]:
       h = convives[connaissanceBestConvivePop][1] * len(convives[connaissanceBestConvivePop][2])
       connaissancesH.append([h, connaissanceBestConvivePop])
     
     #On trie les connaissances selon leur interet
     connaissancesH.sort(reverse=True)
-    for i in range(0, len(connaissancesH)):
-      connaissance = connaissancesH[i][1]
-      apparition = 0
-      for j in range(0, len(listeConnaissancesPop)):
-        if connaissance in listeConnaissancesPop[j]:
-          apparition += 1 
-      if apparition == len(listeConnaissancesPop) and connaissance not in population:
-        listeConnaissancesPop.append(list(convives[connaissance][2]))
-        population.append(connaissance)
+    for connaissanceH in connaissancesH:
+      connaissance = connaissanceH[1]
+      if connaissance not in population:
+        ajout = True
+        for connaissancePop in listeConnaissancesPop:
+          if connaissance not in connaissancePop:
+            ajout = False
+            break
+        if ajout:
+          listeConnaissancesPop.append(convives[connaissance][2])
+          population.append(connaissance)
 
   return populations
 
@@ -139,6 +148,7 @@ def calculScore(population, convives):
   for invite in population:
     score = 0
     for autresInvites in population:
+      #test si un invite ne connait pas les autres invites, dans ce cas +1
       if invite != autresInvites and invite not in convives[autresInvites][2]:
         score += 1
     scoresWithConvives.append([score, invite])
@@ -146,22 +156,51 @@ def calculScore(population, convives):
     
   return (scoresWithConvives, scores)
 
-def survie(convives, population, taille):
+def survie(convives, populations, taille):
   listTmp = []
   score = 0
-
-  for i in range(0, len(population)):
-    for j in range(0, len(population[i])):
-      score += convives[population[i][j]][1]
+  for population in populations:
+    for invite in population:
+      score += convives[invite][1]
     
-    listTmp.append([score, population[i]])
+    listTmp.append([score, population])
     score = 0
   
   listTmp.sort(reverse=True)
-  population.clear()
+  populations.clear()
   for i in range(0, taille):
-    population.append(listTmp[i][1])
+    populations.append(listTmp[i][1])
 
-  return population
+  return populations
 
+def calculBest(invite, convives):
+  score = 0
+  for i in invite:
+    score += convives[i][1]
+  return score
+
+
+def genetique(convives, pc, pm, taillePop, tailleS, iterMax):
+  best = 0
+  tmpBest = 0
+  solution = []
+
+  population = initPop(convives, taillePop)
+  best = calculBest(population[0], convives)
+  print(best)
+  solution = population.copy()
+  for k in range(0, iterMax):
+    population = selection(convives, population, tailleS)
+    population = croisement(population, pc)
+    population = mutation(population, pm, convives)
+    population = reparation(convives, population)
+    solution.extend(population) #Ajout de la population à la solution
+    solution = survie(convives, solution, taillePop)
+    population = solution.copy() #La population est égale à la population
+    tmpBest = calculBest(solution[0], convives)
+    if tmpBest > best:
+      best = tmpBest
+    print("Best is "+ str(best)+" au bout de l'itération "+ str(k) +" avec la solution " +str(solution[0]))
+
+  return best
 
