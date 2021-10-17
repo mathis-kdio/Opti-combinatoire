@@ -181,12 +181,11 @@ def calculBest(invite, convives):
   return score
 
 
-def genetique(convives, pc, pm, taillePop, tailleS, iterMax, tempsMax):
+def genetique(convives, pc, pm, taillePop, tailleS, iterMax, tempsMax, start):
   best = 0
   tmpBest = 0
   solution = []
   temps_passe = 0
-  start = time.time()
   print('start', start)
 
   population = initPop(convives, taillePop)
@@ -253,3 +252,51 @@ def flip(solution_initial, convives, nb_iteration):
 		liste_finale.append(copy_solution_initial)
 
 	return liste_finale
+
+
+def hybridation(convives, pc, pm, taillePop, tailleS, iterMax, tempsMax, start, nbIteration):
+  temps_passe = 0
+  solution = []
+  score = 0
+
+  population = initPop(convives, taillePop)
+  best = calculBest(population[0], convives)
+  solution = population.copy()
+
+  for i in range(1, iterMax):
+    cpt = 0
+    population = selection(convives, population, tailleS)
+    population = croisement(population, pc)
+    population = mutation(population, pm, convives)
+    population = reparation(convives, population)
+    solution.extend(population) #Ajout de la population à la solution
+    solution = survie(convives, solution, taillePop)
+    population = solution.copy()
+    for j in solution:
+      score = calculBest(j, convives)
+      if score > best:
+        print("Score amélioré par le génétique à l'itération "+str(i))
+        best = score
+        bestSolution = solution[cpt][:]
+        print(bestSolution, calculBest(bestSolution, convives))	
+      cpt += 1	
+
+    listTabu = flip(bestSolution, convives, nbIteration)
+    listTabu = reparation(convives, listTabu)
+    cpt = 0
+		
+    for j in listTabu:
+      score = calculBest(j, convives)
+      if score > best:
+        print("Score amélioré par le tabou à l'itération "+str(i))
+        best = score
+        bestSolution = listTabu[cpt]
+        population[0] = bestSolution[:]
+        print(bestSolution, calculBest(bestSolution, convives))
+      cpt += 1
+
+    temps_passe = time.time() - start
+    if temps_passe > tempsMax:
+      return best
+
+  return best
