@@ -70,15 +70,23 @@ if __name__ == '__main__':
 
   result.append("End")
 
-  try:
-      fichierSortie = open(sys.argv[2], "w")
-  except:
-      sys.exit("Impossible d'écrire dans le fichier")
+  #try:
+  #    fichierSortie = open(sys.argv[2], "w")
+  #except:
+  #    sys.exit("Impossible d'écrire dans le fichier")
 
-  for mot in result:
-      fichierSortie.write(str(mot) + "\n")
-  fichierSortie.close()
+  #for mot in result:
+  #    fichierSortie.write(str(mot) + "\n")
 
-  population = initPop(convives, 200)
-  reproduction = selection(convives, population, 100)
-  print(reproduction)
+  #fichierSortie.close()
+
+  #population = initPop(convives, 200)
+  #reproduction = selection(convives, population, 100)
+  #print(reproduction)
+
+  res = tabu_search(convives)
+  print("res", res)
+  # pour le script d autoexec
+  #f = open("output", "a")
+  #f.write("instance: " + sys.argv[1] + ' resultat : ' + str(best) + "\n")
+  #f.close()

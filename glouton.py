@@ -49,3 +49,34 @@ def glouton(convives, randomize):
         poids += convives[i][1]
 
     return solution
+
+def tabu_search(convives):
+    print("tabu search")
+
+    solution_initial = glouton(convives, True)
+    copy_solution_initial = solution_initial.copy()
+    solution_possible = []
+    liste_tabu = []
+    solution_final = []
+
+    #liste des candidats: inverser 1 convives
+    for i in solution_initial:
+        print("i :", i)
+        copy_solution_initial.pop()
+        print("copy_solution_initial : ", copy_solution_initial)
+
+
+    print("copy_solution_initial : ", copy_solution_initial)
+    while solution_possible != []:
+        print("while")
+        # if l'inversion est meilleur :
+            # if est dans la liste tabu :
+                # if rentre dans les criteres :
+                # else :
+            # else :
+        # else :
+
+        solution_possible.pop()
+
+    print("solution_initial", solution_initial)
+    return solution_final
