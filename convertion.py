@@ -1,5 +1,6 @@
 import sys
 
+from glouton import *
 from genetique import *
 from parsing import parsing, writeLp
 
@@ -48,6 +49,6 @@ if __name__ == '__main__':
   pm = 2
   iterMax = 500
 
-  best = genetique(convives, pc, pm, taillePop, tailleS, iterMax)  
+  #best = genetique(convives, pc, pm, taillePop, tailleS, iterMax)  
 
   solution_taboue = liste_taboue(convives, 1000)
