@@ -268,4 +268,4 @@ def flip(solution_initial, convives, nb_iteration):
                 newConvive = randrange(0, len(convives))
             copy_solution_initial.append(newConvive)
 
-    return copy_solution_initial.copy()
+    return [copy_solution_initial]
