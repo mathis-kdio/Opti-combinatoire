@@ -260,6 +260,7 @@ def hybridation(convives, pc, pm, taillePop, tailleS, iterMax, tempsMax, nbItera
   solution = []
   score = 0
   cpt = 0
+  fin = 0
 
   population = initPop(convives, taillePop)
   best = calculBest(population[0], convives)
@@ -292,11 +293,14 @@ def hybridation(convives, pc, pm, taillePop, tailleS, iterMax, tempsMax, nbItera
       if score > best:
         print("Score amélioré par le tabou")
         best = score
+        fin = 1
         bestSolution = listTabu[cpt]
         population[0] = bestSolution[:]
-      cpt += 1		
+      cpt += 1	
 
     print(bestSolution, calculBest(bestSolution, convives))
+    if (fin == 1):
+      return best	
     
 
   return best
