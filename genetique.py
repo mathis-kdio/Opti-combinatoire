@@ -237,7 +237,7 @@ def tabu_search(convives, nb_iteration):
 
         liste_finale = flip(solution_initial, convives, nb_iteration)
         liste_finale_repare = reparation(convives, liste_finale)
-
+        liste_heuristique.clear()
         for x in liste_finale_repare:
             valeur = 0
             for y in x:
@@ -265,7 +265,7 @@ def flip(solution_initial, convives, nb_iteration):
     for i in range(nb_iteration):
         copy_solution_initial = solution_initial.copy()
         for j in range(3):
-            retire = random.randint(0, len(copy_solution_initial) - 1)
+            retire = randrange(0, len(copy_solution_initial) - 1)
             mec_taboue = copy_solution_initial.pop(retire)
             liste_taboue.append(mec_taboue)
 
@@ -273,9 +273,9 @@ def flip(solution_initial, convives, nb_iteration):
 
         for k in range(3):
 
-            mec_random = random.randint(0, len(convives))
+            mec_random = randrange(0, len(convives))
             while mec_random in nouvelle_liste_initiale or mec_random in liste_taboue:
-                mec_random = random.randint(0, len(convives))
+                mec_random = randrange(0, len(convives))
             nouvelle_liste_initiale.append(mec_random)
 
         liste_finale.append(nouvelle_liste_initiale)
