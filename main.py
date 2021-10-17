@@ -1,7 +1,7 @@
 import sys
 
 from genetique import *
-from parsing import parsing, writeLp
+from parsing import parsing
 
 if __name__ == '__main__':
   print("Projet Optimisation Combinatoire")
