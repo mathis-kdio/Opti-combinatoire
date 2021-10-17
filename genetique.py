@@ -253,7 +253,7 @@ def tabu_search(convives, nb_iteration):
 
 def flip(solution_initial, convives, nb_iteration):
     liste_taboue = []
-
+    liste_finale = []
     for i in range(nb_iteration):
         copy_solution_initial = solution_initial.copy()
         for j in range(3):
@@ -268,4 +268,6 @@ def flip(solution_initial, convives, nb_iteration):
                 newConvive = randrange(0, len(convives))
             copy_solution_initial.append(newConvive)
 
-    return [copy_solution_initial]
+        liste_finale.append(copy_solution_initial)
+
+    return liste_finale
