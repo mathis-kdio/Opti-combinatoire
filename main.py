@@ -51,5 +51,5 @@ if __name__ == '__main__':
   fichierSortie.write("Interet maximum trouve : " + str(interet) + " avec les " + str(len(solution)) + " invites suivants : " + str(solution) + "\n")
   fichierSortie.close()
   '''
-  res_tabu = tabu_search(convives, 10)
+  res_tabu = tabu_search(convives, 100)
   print("res_tabu ", res_tabu)

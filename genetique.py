@@ -224,36 +224,29 @@ def genetique(convives, pc, pm, taillePop, tailleS, iterMax):
 
 
 def tabu_search(convives, nb_iteration):
-    print("------tabu_search------")
-    liste_heuristique = []
-    heuristique_tmp = 0
     res_tabu_search = []
-    for i in range(nb_iteration):
 
-        if i == 0:
-            solution_initial = glouton(convives, False)
-        else:
-            solution_initial = res_tabu_search
+    solution = glouton(convives, False)
+    tmp = calculBest(solution, convives)
 
-        liste_finale = flip(solution_initial, convives, nb_iteration)
+    for i in range(0, nb_iteration):
+        
+        liste_finale = flip(solution[:], convives, nb_iteration)
         liste_finale_repare = reparation(convives, liste_finale)
-        liste_heuristique.clear()
-        for x in liste_finale_repare:
-            valeur = 0
-            for y in x:
-                valeur += convives[y][1]
+        print(liste_finale_repare)
 
-            liste_heuristique.append(valeur)
+        cpt = 0
+        
+        for j in liste_finale_repare:
+            score = calculBest(j, convives)
+            print(j, score)
+            if score > tmp:
+                tmp = score
+                solution = liste_finale_repare[cpt]
+            cpt += 1
 
-        print("liste heuristique", liste_heuristique)
-        heuristique_max = max(liste_heuristique)
+        print(solution, calculBest(solution, convives))
 
-        if heuristique_max > heuristique_tmp:
-            heuristique_tmp = heuristique_max
-            index_max = liste_heuristique.index(heuristique_max)
-            res_tabu_search = liste_finale_repare[index_max]
-            print("heuristique max", heuristique_max)
-            print("liste avec heuristique max", liste_finale_repare[index_max])
 
     return res_tabu_search
 
@@ -267,6 +260,7 @@ def flip(solution_initial, convives, nb_iteration):
             indexConviveRetire = randrange(0, len(copy_solution_initial))
             conviveRetire = copy_solution_initial.pop(indexConviveRetire)
             liste_taboue.append(conviveRetire)
+
 
         for j in range(3):
             newConvive = randrange(0, len(convives))
