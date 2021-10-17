@@ -253,3 +253,48 @@ def flip(solution_initial, convives, nb_iteration):
 		liste_finale.append(copy_solution_initial)
 
 	return liste_finale
+
+
+def hybridation(convives, pc, pm, taillePop, tailleS, iterMax, tempsMax, nbIteration):
+  
+  solution = []
+  score = 0
+  cpt = 0
+
+  population = initPop(convives, taillePop)
+  best = calculBest(population[0], convives)
+  solution = population.copy()
+
+  for i in range(1, iterMax):
+    cpt = 0
+    population = selection(convives, population, tailleS)
+    population = croisement(population, pc)
+    population = mutation(population, pm, convives)
+    population = reparation(convives, population)
+    solution.extend(population) #Ajout de la population à la solution
+    solution = survie(convives, solution, taillePop)
+    population = solution.copy()
+    for j in solution:
+      score = calculBest(j, convives)
+      if score > best:
+        best = score
+        bestSolution = solution[cpt][:]
+      cpt += 1	
+
+    print(bestSolution, calculBest(bestSolution, convives))	
+
+    listTabu = flip(bestSolution, convives, nbIteration)
+    listTabu = reparation(convives, listTabu)
+    cpt = 0
+		
+    for j in listTabu:
+      score = calculBest(j, convives)
+      if score > best:
+        print("Score amélioré par le tabou")
+        best = score
+        bestSolution = listTabu[cpt]
+      cpt += 1		
+
+    print(bestSolution, calculBest(bestSolution, convives))
+
+  return best
