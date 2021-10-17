@@ -226,33 +226,34 @@ def genetique(convives, pc, pm, taillePop, tailleS, iterMax):
 def tabu_search(convives, nb_iteration):
     print("------tabu_search------")
     liste_heuristique = []
-    solution_initial = glouton(convives, False)
+    heuristique_tmp = 0
 
-    print("liste de depart", solution_initial)
+    for i in range(nb_iteration):
 
-    liste_finale = flip(solution_initial, convives, nb_iteration)
-    print("liste finale", liste_finale)
+        if nb_iteration == 0:
+            solution_initial = glouton(convives, False)
+        else:
+            solution_initial = res_tabu_search
 
-    liste_finale_repare = reparation(convives, liste_finale)
-    print("liste finale repare", liste_finale_repare)
+        liste_finale = flip(solution_initial, convives, nb_iteration)
+        liste_finale_repare = reparation(convives, liste_finale)
 
-    # REMPLACER liste_finale PAR liste_finale_repare
+        for x in liste_finale_repare:
+            valeur = 0
+            for y in x:
+                valeur += convives[y][1]
 
-    for x in liste_finale_repare:
-        valeur = 0
-        for y in x:
-            valeur += convives[y][1]
+            liste_heuristique.append(valeur)
 
-        liste_heuristique.append(valeur)
+        print("liste heuristique", liste_heuristique)
+        heuristique_max = max(liste_heuristique)
 
-    print("liste heuristie", liste_heuristique)
-
-    heuristique_max = max(liste_heuristique)
-    index_max = liste_heuristique.index(heuristique_max)
-    res_tabu_search = liste_finale_repare[index_max]
-    print("heuristique max", heuristique_max)
-
-    print("liste avec heuristique max", liste_finale_repare[index_max])
+        if heuristique_max > heuristique_tmp:
+            heuristique_tmp = heuristique_max
+            index_max = liste_heuristique.index(heuristique_max)
+            res_tabu_search = liste_finale_repare[index_max]
+            print("heuristique max", heuristique_max)
+            print("liste avec heuristique max", liste_finale_repare[index_max])
 
     return res_tabu_search
 
