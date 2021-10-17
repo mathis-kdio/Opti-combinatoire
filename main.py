@@ -55,4 +55,5 @@ if __name__ == '__main__':
   '''res_tabu = tabu_search(convives, 100)
   print("res_tabu ", res_tabu)'''
 
-  hybridation(convives, pc, pm, taillePop, tailleS, iterMax, tempsMax, 100)
+  res = hybridation(convives, pc, pm, taillePop, tailleS, iterMax, tempsMax, 100)
+  print(res)
