@@ -225,33 +225,12 @@ def genetique(convives, pc, pm, taillePop, tailleS, iterMax):
 
 def tabu_search(convives, nb_iteration):
     print("------tabu_search------")
-    liste_taboue = []
-    liste_finale = []
     liste_heuristique = []
-    res_tabu_search = 0
-
     solution_initial = glouton(convives, False)
 
     print("liste de depart", solution_initial)
 
-    for i in range(nb_iteration):
-        copy_solution_initial = solution_initial.copy()
-        for j in range(3):
-            retire = random.randint(0, len(copy_solution_initial) - 1)
-            mec_taboue = copy_solution_initial.pop(retire)
-            liste_taboue.append(mec_taboue)
-
-        nouvelle_liste_initiale = copy_solution_initial
-
-        for k in range(3):
-
-            mec_random = random.randint(0, len(convives))
-            while mec_random in nouvelle_liste_initiale or mec_random in liste_taboue:
-                mec_random = random.randint(0, len(convives))
-            nouvelle_liste_initiale.append(mec_random)
-
-        liste_finale.append(nouvelle_liste_initiale)
-
+    liste_finale = flip(solution_initial, convives, nb_iteration)
     print("liste finale", liste_finale)
 
     liste_finale_repare = reparation(convives, liste_finale)
@@ -276,3 +255,28 @@ def tabu_search(convives, nb_iteration):
     print("liste avec heuristique max", liste_finale_repare[index_max])
 
     return res_tabu_search
+
+
+def flip(solution_initial, convives, nb_iteration):
+    liste_taboue = []
+    liste_finale = []
+
+    for i in range(nb_iteration):
+        copy_solution_initial = solution_initial.copy()
+        for j in range(3):
+            retire = random.randint(0, len(copy_solution_initial) - 1)
+            mec_taboue = copy_solution_initial.pop(retire)
+            liste_taboue.append(mec_taboue)
+
+        nouvelle_liste_initiale = copy_solution_initial
+
+        for k in range(3):
+
+            mec_random = random.randint(0, len(convives))
+            while mec_random in nouvelle_liste_initiale or mec_random in liste_taboue:
+                mec_random = random.randint(0, len(convives))
+            nouvelle_liste_initiale.append(mec_random)
+
+        liste_finale.append(nouvelle_liste_initiale)
+
+    return liste_finale
