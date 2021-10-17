@@ -18,7 +18,7 @@ def parsing(lignes):
     return nbConvives, m
 
 
-def writeLp(convives, nbConvives):
+def writeLp(convives, nbConvives, outputFile):
     result = []
     result.append("Maximize")
     
@@ -47,7 +47,7 @@ def writeLp(convives, nbConvives):
     result.append("End")
 
     try:
-        fichierSortie = open(sys.argv[2], "w")
+        fichierSortie = open(outputFile, "w")
     except:
         sys.exit("Impossible d'écrire dans le fichier")
 

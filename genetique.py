@@ -181,7 +181,7 @@ def calculBest(invite, convives):
   return score
 
 
-def genetique(convives, pc, pm, taillePop, tailleS, iterMax):
+def genetique(convives, pc, pm, taillePop, tailleS, iterMax, tempsMax):
   best = 0
   tmpBest = 0
   solution = []
@@ -204,12 +204,11 @@ def genetique(convives, pc, pm, taillePop, tailleS, iterMax):
     tmpBest = calculBest(solution[0], convives)
     if tmpBest > best:
       best = tmpBest
-    print("Best is "+ str(best)+" au bout de l'itération "+ str(k) +" avec la solution " +str(solution[0]))
+    print("Best is "+ str(best)+" au bout de l'itération "+ str(k) +" avec la solution " + str(solution[0]))
     temps_passe = time.time() - start
     print('temps passé', temps_passe)
 
-    if temps_passe > 120:
+    if temps_passe > tempsMax:
       return best
 
-  return best
-
+  return (best, solution[0])

@@ -1,0 +1,1 @@
+Interet maximum trouve : 73 avec les 4 invites suivants : [161, 8, 15, 196]
