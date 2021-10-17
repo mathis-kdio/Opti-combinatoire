@@ -86,6 +86,7 @@ if __name__ == '__main__':
 
   res = tabu_search(convives)
   print("res", res)
+
   # pour le script d autoexec
   #f = open("output", "a")
   #f.write("instance: " + sys.argv[1] + ' resultat : ' + str(best) + "\n")

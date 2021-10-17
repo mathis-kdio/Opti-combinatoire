@@ -2,6 +2,7 @@ import sys
 
 from genetique import *
 from parsing import parsing, writeLp
+from glouton import *
 
 if __name__ == '__main__':
 
@@ -36,8 +37,8 @@ if __name__ == '__main__':
     convives[m[j][1]][2].append(m[j][0])
 
   # Ecriture du résultat dans le fichier lp
-  if argu.split("instance"):
-    writeLp(convives, nbConvives)
+  #if argu.split("instance"):
+  #  writeLp(convives, nbConvives)
 
 
   # Algo génétique
@@ -48,8 +49,11 @@ if __name__ == '__main__':
   pm = 2
   iterMax = 500
 
-  best = genetique(convives, pc, pm, taillePop, tailleS, iterMax)
+  res_tabu = tabu_search(convives, 10)
+  print("res_tabu ", res_tabu)
 
-  f = open("output", "a")
-  f.write("instance: " + sys.argv[1] + ' resultat : ' + str(best) + "\n")
-  f.close()
+  #best = genetique(convives, pc, pm, taillePop, tailleS, iterMax)
+
+  #f = open("output", "a")
+  #f.write("instance: " + sys.argv[1] + ' resultat : ' + str(best) + "\n")
+  #f.close()

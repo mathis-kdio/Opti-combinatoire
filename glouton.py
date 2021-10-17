@@ -1,4 +1,6 @@
+from genetique import *
 import random
+
 
 def glouton(convives, randomize):
     #Déclaration des variables
@@ -44,38 +46,3 @@ def glouton(convives, randomize):
 
     return solution
 
-def tabu_search(convives):
-    print("tabu search")
-
-    solution_initial = glouton(convives, True)
-    copy_solution_initial = solution_initial.copy()
-    solution_possible = []
-    liste_tabu = []
-    solution_final = []
-
-
-    possibilite = nouvelle_liste(solution_initial)
-
-    while solution_possible:
-        print("while")
-        # if l'inversion est meilleur :
-            # if est dans la liste tabu :
-                # if rentre dans les criteres :
-                # else :
-            # else :
-        # else :
-
-        solution_possible.pop()
-
-    return solution_final
-
-def nouvelle_liste(solution_initial):
-    nouvelle_solution = []
-    copy_solution_initial = solution_initial.copy()
-
-    for i in range(len(solution_initial)-1):
-        print("i :", i)
-        copy_solution_initial.pop()
-        print("copy_solution_initial : ", copy_solution_initial)
-
-    return nouvelle_solution
