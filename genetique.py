@@ -208,7 +208,7 @@ def genetique(convives, pc, pm, taillePop, tailleS, iterMax, tempsMax, start):
     print('temps passé', temps_passe)
 
     if temps_passe > tempsMax:
-      return best
+      return (best, solution[0])
 
   return (best, solution[0])
 
@@ -297,6 +297,6 @@ def hybridation(convives, pc, pm, taillePop, tailleS, iterMax, tempsMax, start, 
 
     temps_passe = time.time() - start
     if temps_passe > tempsMax:
-      return best
+      return (best, bestSolution)
 
-  return best
+  return (best, bestSolution)

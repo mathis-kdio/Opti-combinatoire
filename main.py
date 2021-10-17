@@ -4,11 +4,11 @@ from genetique import *
 from parsing import parsing
 
 if __name__ == '__main__':
-  print("Projet Optimisation Combinatoire")
+  print("Début programme Projet Optimisation Combinatoire")
   start = time.time()
 
   if len(sys.argv) < 5:
-    print("vous avez oubliez de préciser le dernier argument")
+    print("vous avez oubliez de préciser un argument")
     print("        p : pour une petite instance")
     print("        g : pour une grande instance")
     sys.exit()
@@ -54,11 +54,13 @@ if __name__ == '__main__':
   print("res_tabu ", res_tabu)'''
 
   if input_algo == 'p':
-    res = hybridation(convives, pc, pm, taillePop, tailleS, iterMax, tempsMax - 5, start, 100)
-    print('input algo', input_algo)
+    print('Début algorithme hybridation')
+    (interet, solution) = hybridation(convives, pc, pm, taillePop, tailleS, iterMax, tempsMax - 5, start, 100)
+    print('Fin algorithme hybridation')
   if input_algo == 'g':
+    print('Début algorithme genetique')
     (interet, solution) = genetique(convives, pc, pm, taillePop, tailleS, iterMax, tempsMax - 5, start)
-    print('input algo', input_algo)
+    print('Fin algorithme genetique')
 
 
 
@@ -69,3 +71,5 @@ if __name__ == '__main__':
     sys.exit("Impossible d'écrire dans le fichier")
   fichierSortie.write("Interet maximum trouve : " + str(interet) + " avec les " + str(len(solution)) + " invites suivants : " + str(solution) + "\n")
   fichierSortie.close()
+
+  print("Fin programme Projet Optimisation Combinatoire")

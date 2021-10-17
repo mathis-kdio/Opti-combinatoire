@@ -1,1 +1,1 @@
-Interet maximum trouve : 73 avec les 4 invites suivants : [161, 8, 15, 196]
+Interet maximum trouve : 73 avec les 4 invites suivants : [196, 8, 161, 15]
