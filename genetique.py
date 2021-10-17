@@ -1,5 +1,6 @@
 from random import randrange
 from glouton import *
+import time
 
 def initPop(convives, taillePop):
   population = []
@@ -184,6 +185,9 @@ def genetique(convives, pc, pm, taillePop, tailleS, iterMax):
   best = 0
   tmpBest = 0
   solution = []
+  temps_passe = 0
+  start = time.time()
+  print('start', start)
 
   population = initPop(convives, taillePop)
   best = calculBest(population[0], convives)
@@ -201,6 +205,11 @@ def genetique(convives, pc, pm, taillePop, tailleS, iterMax):
     if tmpBest > best:
       best = tmpBest
     print("Best is "+ str(best)+" au bout de l'itération "+ str(k) +" avec la solution " +str(solution[0]))
+    temps_passe = time.time() - start
+    print('temps passé', temps_passe)
+
+    if temps_passe > 120:
+      return best
 
   return best
 

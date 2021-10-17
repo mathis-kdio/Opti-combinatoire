@@ -48,4 +48,8 @@ if __name__ == '__main__':
   pm = 2
   iterMax = 500
 
-  best = genetique(convives, pc, pm, taillePop, tailleS, iterMax)  
+  best = genetique(convives, pc, pm, taillePop, tailleS, iterMax)
+
+  f = open("output", "a")
+  f.write("instance: " + sys.argv[1] + ' resultat : ' + str(best) + "\n")
+  f.close()
