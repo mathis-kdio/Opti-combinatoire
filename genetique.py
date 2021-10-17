@@ -212,3 +212,46 @@ def genetique(convives, pc, pm, taillePop, tailleS, iterMax, tempsMax):
       return best
 
   return (best, solution[0])
+
+
+def tabu_search(convives, nb_iteration):
+	res_tabu_search = []
+
+	solution = glouton(convives, False)
+	tmp = calculBest(solution, convives)
+
+	for i in range(0, nb_iteration):
+		liste_finale = flip(solution[:], convives, nb_iteration)
+		liste_finale_repare = reparation(convives, liste_finale)
+
+		cpt = 0
+		
+		for j in liste_finale_repare:
+			score = calculBest(j, convives)
+			if score > tmp:
+				tmp = score
+				solution = liste_finale_repare[cpt]
+			cpt += 1		
+
+	return solution, calculBest(solution, convives)
+
+
+def flip(solution_initial, convives, nb_iteration):
+	liste_taboue = []
+	liste_finale = []
+	for i in range(nb_iteration):
+		copy_solution_initial = solution_initial.copy()
+		for j in range(3):
+			indexConviveRetire = randrange(0, len(copy_solution_initial))
+			conviveRetire = copy_solution_initial.pop(indexConviveRetire)
+			liste_taboue.append(conviveRetire)
+
+		for j in range(3):
+			newConvive = randrange(0, len(convives))
+			while newConvive in copy_solution_initial or newConvive in liste_taboue:
+				newConvive = randrange(0, len(convives))
+			copy_solution_initial.append(newConvive)
+
+		liste_finale.append(copy_solution_initial)
+
+	return liste_finale

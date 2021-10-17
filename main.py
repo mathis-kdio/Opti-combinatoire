@@ -33,6 +33,7 @@ if __name__ == '__main__':
   #writeLp(convives, nbConvives, ouputLPFile)
 
   # Algo génétique
+  '''
   solution = []
   taillePop = 400
   tailleS = 100
@@ -49,3 +50,6 @@ if __name__ == '__main__':
     sys.exit("Impossible d'écrire dans le fichier")
   fichierSortie.write("Interet maximum trouve : " + str(interet) + " avec les " + str(len(solution)) + " invites suivants : " + str(solution) + "\n")
   fichierSortie.close()
+  '''
+  res_tabu = tabu_search(convives, 100)
+  print("res_tabu ", res_tabu)
