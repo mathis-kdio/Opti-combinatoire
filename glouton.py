@@ -59,15 +59,10 @@ def tabu_search(convives):
     liste_tabu = []
     solution_final = []
 
-    #liste des candidats: inverser 1 convives
-    for i in solution_initial:
-        print("i :", i)
-        copy_solution_initial.pop()
-        print("copy_solution_initial : ", copy_solution_initial)
 
+    possibilite = nouvelle_liste(solution_initial)
 
-    print("copy_solution_initial : ", copy_solution_initial)
-    while solution_possible != []:
+    while solution_possible:
         print("while")
         # if l'inversion est meilleur :
             # if est dans la liste tabu :
@@ -78,5 +73,15 @@ def tabu_search(convives):
 
         solution_possible.pop()
 
-    print("solution_initial", solution_initial)
     return solution_final
+
+def nouvelle_liste(solution_initial):
+    nouvelle_solution = []
+    copy_solution_initial = solution_initial.copy()
+
+    for i in range(len(solution_initial)-1):
+        print("i :", i)
+        copy_solution_initial.pop()
+        print("copy_solution_initial : ", copy_solution_initial)
+
+    return nouvelle_solution

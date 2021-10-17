@@ -6,13 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="ba3625c5-9267-487f-9589-9b874bfec003" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/convertion.py" beforeDir="false" afterPath="$PROJECT_DIR$/convertion.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/glouton.py" beforeDir="false" afterPath="$PROJECT_DIR$/glouton.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/instance1.lp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/instance2.lp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/instance3.lp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/large1.lp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/large1.txt" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
