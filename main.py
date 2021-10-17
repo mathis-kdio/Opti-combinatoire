@@ -5,6 +5,7 @@ from parsing import parsing
 
 if __name__ == '__main__':
   print("Projet Optimisation Combinatoire")
+  start = time.time()
 
   # Lecture du fichier d'instance
   inputFile = sys.argv[2]
@@ -41,7 +42,7 @@ if __name__ == '__main__':
   pm = 2
   iterMax = 500
   tempsMax = int(sys.argv[1])
-  '''(interet, solution) = genetique(convives, pc, pm, taillePop, tailleS, iterMax, tempsMax)
+  '''(interet, solution) = genetique(convives, pc, pm, taillePop, tailleS, iterMax, tempsMax - 5, start)
 
   
   outputFile = sys.argv[3]
@@ -55,5 +56,5 @@ if __name__ == '__main__':
   '''res_tabu = tabu_search(convives, 100)
   print("res_tabu ", res_tabu)'''
 
-  res = hybridation(convives, pc, pm, taillePop, tailleS, iterMax, tempsMax, 100)
+  res = hybridation(convives, pc, pm, taillePop, tailleS, iterMax, tempsMax - 5, start, 100)
   print(res)

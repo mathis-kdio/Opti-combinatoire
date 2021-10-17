@@ -181,12 +181,11 @@ def calculBest(invite, convives):
   return score
 
 
-def genetique(convives, pc, pm, taillePop, tailleS, iterMax, tempsMax):
+def genetique(convives, pc, pm, taillePop, tailleS, iterMax, tempsMax, start):
   best = 0
   tmpBest = 0
   solution = []
   temps_passe = 0
-  start = time.time()
   print('start', start)
 
   population = initPop(convives, taillePop)
@@ -255,8 +254,8 @@ def flip(solution_initial, convives, nb_iteration):
 	return liste_finale
 
 
-def hybridation(convives, pc, pm, taillePop, tailleS, iterMax, tempsMax, nbIteration):
-  
+def hybridation(convives, pc, pm, taillePop, tailleS, iterMax, tempsMax, start, nbIteration):
+  temps_passe = 0
   solution = []
   score = 0
 
@@ -294,6 +293,10 @@ def hybridation(convives, pc, pm, taillePop, tailleS, iterMax, tempsMax, nbItera
         bestSolution = listTabu[cpt]
         population[0] = bestSolution[:]
         print(bestSolution, calculBest(bestSolution, convives))
-      cpt += 1	
+      cpt += 1
+
+    temps_passe = time.time() - start
+    if temps_passe > tempsMax:
+      return best
 
   return best
