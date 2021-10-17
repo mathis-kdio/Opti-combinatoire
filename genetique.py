@@ -223,21 +223,17 @@ def tabu_search(convives, nb_iteration):
 	for i in range(0, nb_iteration):
 		liste_finale = flip(solution[:], convives, nb_iteration)
 		liste_finale_repare = reparation(convives, liste_finale)
-		print(liste_finale_repare)
 
 		cpt = 0
 		
 		for j in liste_finale_repare:
 			score = calculBest(j, convives)
-			print(j, score)
 			if score > tmp:
 				tmp = score
 				solution = liste_finale_repare[cpt]
-			cpt += 1
+			cpt += 1		
 
-		print(solution, calculBest(solution, convives))
-
-	return res_tabu_search
+	return solution, calculBest(solution, convives)
 
 
 def flip(solution_initial, convives, nb_iteration):
