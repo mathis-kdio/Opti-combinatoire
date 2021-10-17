@@ -7,6 +7,14 @@ if __name__ == '__main__':
   print("Projet Optimisation Combinatoire")
   start = time.time()
 
+  if len(sys.argv) < 5:
+    print("vous avez oubliez de préciser le dernier argument")
+    print("        p : pour une petite instance")
+    print("        g : pour une grande instance")
+    sys.exit()
+
+
+  input_algo = sys.argv[4]
   # Lecture du fichier d'instance
   inputFile = sys.argv[2]
   try:
@@ -34,7 +42,6 @@ if __name__ == '__main__':
   #writeLp(convives, nbConvives, ouputLPFile)
 
   # Algo génétique
-  
   solution = []
   taillePop = 400
   tailleS = 100
@@ -42,9 +49,19 @@ if __name__ == '__main__':
   pm = 2
   iterMax = 500
   tempsMax = int(sys.argv[1])
-  '''(interet, solution) = genetique(convives, pc, pm, taillePop, tailleS, iterMax, tempsMax - 5, start)
 
-  
+  '''res_tabu = tabu_search(convives, 100)
+  print("res_tabu ", res_tabu)'''
+
+  if input_algo == 'p':
+    res = hybridation(convives, pc, pm, taillePop, tailleS, iterMax, tempsMax - 5, start, 100)
+    print('input algo', input_algo)
+  if input_algo == 'g':
+    (interet, solution) = genetique(convives, pc, pm, taillePop, tailleS, iterMax, tempsMax - 5, start)
+    print('input algo', input_algo)
+
+
+
   outputFile = sys.argv[3]
   try:
     fichierSortie = open(outputFile, "w")
@@ -52,9 +69,3 @@ if __name__ == '__main__':
     sys.exit("Impossible d'écrire dans le fichier")
   fichierSortie.write("Interet maximum trouve : " + str(interet) + " avec les " + str(len(solution)) + " invites suivants : " + str(solution) + "\n")
   fichierSortie.close()
-  '''
-  '''res_tabu = tabu_search(convives, 100)
-  print("res_tabu ", res_tabu)'''
-
-  res = hybridation(convives, pc, pm, taillePop, tailleS, iterMax, tempsMax - 5, start, 100)
-  print(res)
