@@ -1,7 +1,7 @@
 import sys
 
 from genetique import *
-from parsing import parsing
+from parsing import *
 
 if __name__ == '__main__':
   print("Début programme Projet Optimisation Combinatoire")
