@@ -1,6 +1,4 @@
-from genetique import *
 import random
-
 
 def glouton(convives, randomize):
     #Déclaration des variables
@@ -45,4 +43,3 @@ def glouton(convives, randomize):
         listConnaissance[0].pop(0)
 
     return solution
-

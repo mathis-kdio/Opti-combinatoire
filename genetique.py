@@ -227,10 +227,10 @@ def tabu_search(convives, nb_iteration):
     print("------tabu_search------")
     liste_heuristique = []
     heuristique_tmp = 0
-
+    res_tabu_search = []
     for i in range(nb_iteration):
 
-        if nb_iteration == 0:
+        if i == 0:
             solution_initial = glouton(convives, False)
         else:
             solution_initial = res_tabu_search
