@@ -90,11 +90,6 @@ if __name__ == '__main__':
   tailleS = 100
   pc = 0.8
   pm = 2
-  iterMax = 100
+  iterMax = 500
 
   best = genetique(convives, pc, pm, taillePop, tailleS, iterMax)  
-
-
-
-  
-
