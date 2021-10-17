@@ -215,8 +215,6 @@ def genetique(convives, pc, pm, taillePop, tailleS, iterMax, tempsMax):
 
 
 def tabu_search(convives, nb_iteration):
-	res_tabu_search = []
-
 	solution = glouton(convives, False)
 	tmp = calculBest(solution, convives)
 
