@@ -260,24 +260,18 @@ def tabu_search(convives, nb_iteration):
 
 def flip(solution_initial, convives, nb_iteration):
     liste_taboue = []
-    liste_finale = []
 
     for i in range(nb_iteration):
         copy_solution_initial = solution_initial.copy()
         for j in range(3):
-            retire = randrange(0, len(copy_solution_initial) - 1)
-            mec_taboue = copy_solution_initial.pop(retire)
-            liste_taboue.append(mec_taboue)
+            indexConviveRetire = randrange(0, len(copy_solution_initial))
+            conviveRetire = copy_solution_initial.pop(indexConviveRetire)
+            liste_taboue.append(conviveRetire)
 
-        nouvelle_liste_initiale = copy_solution_initial
+        for j in range(3):
+            newConvive = randrange(0, len(convives))
+            while newConvive in copy_solution_initial or newConvive in liste_taboue:
+                newConvive = randrange(0, len(convives))
+            copy_solution_initial.append(newConvive)
 
-        for k in range(3):
-
-            mec_random = randrange(0, len(convives))
-            while mec_random in nouvelle_liste_initiale or mec_random in liste_taboue:
-                mec_random = randrange(0, len(convives))
-            nouvelle_liste_initiale.append(mec_random)
-
-        liste_finale.append(nouvelle_liste_initiale)
-
-    return liste_finale
+    return copy_solution_initial.copy()
