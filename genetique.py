@@ -168,7 +168,7 @@ def survie(convives, populations, taille):
   
   listTmp.sort(reverse=True)
   populations.clear()
-  for i in range(0, len(listTmp)):
+  for i in range(0, taille):
     populations.append(listTmp[i][1])
 
   return populations
@@ -188,25 +188,15 @@ def genetique(convives, pc, pm, taillePop, tailleS, iterMax):
   population = initPop(convives, taillePop)
   best = calculBest(population[0], convives)
   print(best)
-
+  solution = population.copy()
   for k in range(0, iterMax):
-    for i in range(0, len(population)):
-      solution.append(population[i])
     population = selection(convives, population, tailleS)
     population = croisement(population, pc)
     population = mutation(population, pm, convives)
     population = reparation(convives, population)
-    for i in range(0, len(population)):
-      solution.append(population[i])
+    solution.extend(population) #Ajout de la population à la solution
     solution = survie(convives, solution, taillePop)
-
-    uniq_sol = []
-    for i in solution:
-      i.sort()
-      if not i in uniq_sol:
-        uniq_sol.append(i)
-    solution = uniq_sol
-
+    population = solution.copy() #La population est égale à la population
     tmpBest = calculBest(solution[0], convives)
     if tmpBest > best:
       best = tmpBest
